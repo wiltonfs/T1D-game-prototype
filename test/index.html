@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scoreboard</title>
+</head>
+<body>
+  <button onclick="sendScore('Red')">Score Red</button>
+  <button onclick="sendScore('Blue')">Score Blue</button>
+  <button onclick="refreshScores()">Refresh Scoreboard</button>
+  <div id="scoreboard">Scores will appear here.</div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxeX3H-otCpGkSCL3_wdzPpzjyR5aBM_HwU68X2xc0TPFah7QJsxBA4UyBkdLfPTP5vKg/exec';
+
+    function sendScore(team) {
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify({ team: team, points: 3 }),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(() => console.log(`${team} scored`));
+    }
+
+    function refreshScores() {
+      fetch(scriptURL)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('scoreboard').innerText =
+            `Red: ${data.Red || 0} | Blue: ${data.Blue || 0}`;
+        });
+    }
+  </script>
+</body>
+</html>
