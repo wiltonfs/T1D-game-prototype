@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <title>Scoreboard</title>
 </head>
-<body>
+ <body>
+  <div>Version 1</div>
   <button onclick="sendScore('Red')">Score Red</button>
   <button onclick="sendScore('Blue')">Score Blue</button>
   <button onclick="refreshScores()">Refresh Scoreboard</button>
@@ -17,7 +18,7 @@
       fetch(scriptURL, {
         method: 'POST',
         body: JSON.stringify({ team: team, points: 3 }),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'text/plain' }
       }).then(() => console.log(`${team} scored`));
     }
 
